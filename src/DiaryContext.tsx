@@ -137,7 +137,21 @@ function diaryReducer(state: DiaryState, action: DiaryAction): DiaryState {
           createdAt: now,
           updatedAt: now,
         }
-        await supabase.from('diary_entries').insert([newEntry])
+        await supabase.from('diar').insert([
+          {
+            date: newEntry.date,
+            pain_level: newEntry.painLevel,
+            pain_intensity: newEntry.painIntensity,
+            head_regions: newEntry.headRegions,
+            symptoms: newEntry.symptoms,
+            triggers: newEntry.triggers,
+            medications: newEntry.medications,
+            start_time: newEntry.startTime,
+            end_time: newEntry.endTime,
+            mood: newEntry.mood,
+            notes: newEntry.notes
+          }
+        ])
       })()
       // Atualiza o estado local imediatamente
       const now = new Date().toISOString()
@@ -167,7 +181,7 @@ function diaryReducer(state: DiaryState, action: DiaryAction): DiaryState {
     case 'DELETE_ENTRY': {
       // Remove do Supabase de forma assíncrona
       (async () => {
-        await supabase.from('diary_entries').delete().eq('id', action.payload)
+        await supabase.from('diar').delete().eq('id', action.payload)
       })()
       const newEntries = state.entries.filter(e => e.id !== action.payload)
       return { ...state, entries: newEntries }
@@ -194,7 +208,7 @@ export function DiaryProvider({ children }: { children: ReactNode }) {
     // Busca os registros do Supabase ao iniciar
     (async () => {
       const { data, error } = await supabase
-        .from('diary_entries')
+        .from('diar')
         .select('*')
         .order('date', { ascending: false })
       if (error) {
