@@ -8,7 +8,7 @@ import {
   formatDatePtBR, getGreeting, calculateDuration, cn, isSameDay, 
   eachDayOfMonth, getFirstDayOfMonth, getMonthName 
 } from './utils'
-import { PainLevel, HeadRegion, Symptom, Mood, Medication } from './types'
+import { PainLevel, HeadRegion, Medication } from './types'
 import {
   SunIcon, MoonIcon, CalendarIcon, ClockIcon, PlusIcon, TrashIcon, CheckIcon,
   ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ArrowRightIcon, PillIcon,
